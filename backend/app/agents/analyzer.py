@@ -65,7 +65,8 @@ class AnalyzerAgent(BaseAgent):
             
             # Skip near-duplicate chunks (simple hash-based dedup).
             # This is intentionally cheap and deterministic for speed.
-            content_hash = hash(content[:100])  # Use first 100 chars for dedup
+            normalized_content = " ".join(content.split()).lower()
+            content_hash = hash(normalized_content)  # Use normalized full content for dedup
             if content_hash in seen_content:
                 continue
             
